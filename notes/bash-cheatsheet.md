@@ -70,3 +70,51 @@ git push	Envoyer sur GitHub (fois suivantes)
 
 
 
+
+
+\## 📦 pip / Packages
+
+
+
+| Commande | Ce que ça fait |
+
+|---|---|
+
+| `pip install <package>` | Installer une bibliothèque dans le venv |
+
+| `pip install pandas` | Installer pandas (bibliothèque data science) |
+
+| `pip freeze > requirements.txt` | Sauvegarder toutes les dépendances du projet |
+
+| `pip install -r requirements.txt` | Réinstaller toutes les dépendances depuis le fichier |
+
+
+
+\## 🔧 Git — Historique \& Navigation
+
+
+
+| Commande | Ce que ça fait |
+
+|---|---|
+
+| `git log --oneline` | Voir l'historique des commits (1 ligne par commit) |
+
+| `git log` | Voir l'historique détaillé des commits |
+
+
+
+\## 🐍 Python — Exécution
+
+
+
+| Commande | Ce que ça fait |
+
+|---|---|
+
+| `python test\_loader.py` | Lancer un script Python spécifique |
+
+| `python -c "code"` | Lancer du code Python directement (éviter sur PowerShell) |
+
+
+
