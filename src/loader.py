@@ -22,3 +22,60 @@ def get_basic_info(df: pd.DataFrame) -> None:
     print(f"✅ Dataset chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes")
     print(f"📋 Colonnes : {list(df.columns)}")
     print(f"❓ Valeurs manquantes :\n{df.isnull().sum()[df.isnull().sum() > 0]}")
+
+
+def get_column_names(df: pd.DataFrame) -> list:
+    colonnes = list(df.columns)
+    return colonnes
+
+
+
+def get_first_client(df: pd.DataFrame) -> dict:
+    """Retourne le premier client sous forme de dictionnaire."""
+    premier_client = df.iloc[0].to_dict()
+    return premier_client
+
+
+def get_unique_values(df: pd.DataFrame, column: str) -> set:
+    """Retourne les valeurs uniques d'une colonne donnée."""
+    return set(df[column].unique())
+
+
+def churn_par_contrat(df: pd.DataFrame) -> dict:
+    """Calcule le taux de churn par type de contrat."""
+    resume = {}
+
+    for contrat in df["Contract"].unique():
+        sous_ensemble = df[df["Contract"] == contrat]
+        total = len(sous_ensemble)
+        churned = (sous_ensemble["Churn"] == "Yes").sum()
+        resume[contrat] = {
+            "total": total,
+            "churned": int(churned),
+            "taux": round(churned / total * 100, 1)
+        }
+    return resume
+
+
+if __name__ == "__main__":
+    df = load_data("data/telco_churn.csv")
+
+    colonnes = get_column_names(df)
+    print(f"\n📋 {len(colonnes)} colonnes trouvées")
+
+    client = get_first_client(df)
+    print(f"\n👤 PREMIER CLIENT :")
+    
+    for cle, valeur in client.items():
+        print(f"  {cle:25} : {valeur}")
+    
+    print(f"\n🔍 VALEURS UNIQUES :")
+    print(f"  Contract       : {get_unique_values(df, 'Contract')}")
+    print(f"  InternetService: {get_unique_values(df, 'InternetService')}")
+    print(f"  PaymentMethod  : {get_unique_values(df, 'PaymentMethod')}")
+    print(f"\n📊 CHURN PAR CONTRAT :")
+    
+    stats = churn_par_contrat(df)
+    for contrat, s in stats.items():
+        print(f"  {contrat:20} : {s['total']:4d} clients, "
+              f"{s['churned']:4d} churned ({s['taux']}%)")
