@@ -28,6 +28,7 @@
 |---|---|
 | `python --version` | Vérifier la version Python |
 | `python script.py` | Lancer un script Python |
+| `python src/script.py` | Lancer un script depuis un sous-dossier |
 | `python -c "code"` | Lancer du code Python directement (éviter sur PowerShell) |
 | `python -m venv .venv` | Créer un environnement virtuel |
 | `.venv\Scripts\activate` | Activer le venv (Windows) |
