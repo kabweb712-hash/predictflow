@@ -4,7 +4,7 @@
 
 ---
 
-## 🖥️ Terminal / PowerShell
+## 1. 🖥️ Terminal / PowerShell
 
 | Commande | Ce que ça fait |
 |---|---|
@@ -22,7 +22,7 @@
 
 ---
 
-## 🐍 Python
+## 2. 🐍 Python
 
 | Commande | Ce que ça fait |
 |---|---|
@@ -36,7 +36,7 @@
 
 ---
 
-## 📦 pip / Packages
+## 3. 📦 pip / Packages
 
 | Commande | Ce que ça fait |
 |---|---|
@@ -47,7 +47,7 @@
 
 ---
 
-## 🔧 Git — Bases
+## 4. 🔧 Git — Bases
 
 | Commande | Ce que ça fait |
 |---|---|
@@ -63,10 +63,11 @@
 | `git branch -M main` | Renommer la branche en main |
 | `git push -u origin main` | Envoyer sur GitHub (1ère fois) |
 | `git push` | Envoyer sur GitHub (fois suivantes) |
+| `git pull` | Récupérer les modifications depuis GitHub |
 
 ---
 
-## 🌿 Git — Branches & Merge
+## 5. 🌿 Git — Branches & Merge
 
 | Commande | Ce que ça fait |
 |---|---|
@@ -78,7 +79,7 @@
 
 ---
 
-## 🔍 Git — Historique & Diagnostic
+## 6. 🔍 Git — Historique & Diagnostic
 
 | Commande | Ce que ça fait |
 |---|---|
@@ -87,3 +88,23 @@
 | `git log --oneline --graph --all` | Visualiser l'historique en arbre |
 | `git diff` | Voir les modifications non committées |
 | `git show HEAD` | Détails du dernier commit |
+
+---
+
+## 7. 📚 Glossaire Python
+
+| Terme | Définition | Exemple |
+|---|---|---|
+| `str` | String — chaîne de texte | `"Alice"`, `"Month-to-month"` |
+| `int` | Integer — nombre entier | `42`, `12`, `-5` |
+| `float` | Nombre décimal (virgule) | `42.7`, `0.6` |
+| `bool` | Booléen — vrai ou faux | `True`, `False` |
+| `list` | Liste ordonnée, modifiable, doublons OK | `[1, 2, 2, 3]` |
+| `tuple` | Liste immuable (non modifiable après création) | `(1, 2, 3)` |
+| `set` | Ensemble sans doublons, non ordonné | `{1, 2, 3}` |
+| `dict` | Dictionnaire clé:valeur | `{"nom": "Alice", "age": 30}` |
+| `type hint` | Annotation du type attendu d'une variable/fonction | `def f(x: str) -> int:` |
+| `DataFrame` | Tableau de données Pandas (lignes + colonnes) | `pd.read_csv("data.csv")` |
+| `mask` | Série de True/False pour filtrer un DataFrame | `df[mask]` |
+| `list comprehension` | Boucle `for` + `if` condensée en 1 ligne | `[x for x in l if x > 0]` |
+| `generator` | Comme list comprehension mais calcul à la demande | `(x for x in l if x > 0)` |
