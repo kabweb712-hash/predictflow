@@ -4,11 +4,26 @@ import os
 
 def load_data(filepath: str) -> pd.DataFrame:
     """Charge le dataset Telco et retourne un DataFrame propre."""
-    if not os.path.exists(filepath):
-        raise FileNotFoundError(f"❌ Dataset introuvable : {filepath}")
-    df = pd.read_csv(filepath)
-    df = fix_total_charges(df)  
-    return df
+    try:
+        if not os.path.exists(filepath):
+            raise FileNotFoundError(f"❌ Dataset introuvable : {filepath}")
+        df = pd.read_csv(filepath)
+        df = fix_total_charges(df)
+        print(f"✅ Dataset chargé : {df.shape[0]} lignes, {df.shape[1]} colonnes")  
+        return df
+    
+    except FileNotFoundError as e:
+        print(e)
+        return None
+    
+    except pd.errors.EmptyDataError:
+        print(f"❌ Erreur : Le fichier CSV est vide.")
+        return None
+    
+    except Exception as e:
+        print(f"❌ Erreur inattendue : {e}")
+        return None
+
 
 
 def fix_total_charges(df: pd.DataFrame) -> pd.DataFrame:
@@ -70,6 +85,10 @@ def filter_at_risk_clients(df: pd.DataFrame) -> pd.DataFrame:
 
 if __name__ == "__main__":
     df = load_data("data/telco_churn.csv")
+
+    if df is None : 
+        print("⛔ Impossible de continuer sans données.")
+        exit(1)
 
     colonnes = get_column_names(df)
     print(f"\n📋 {len(colonnes)} colonnes trouvées")
