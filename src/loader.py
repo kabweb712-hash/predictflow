@@ -57,6 +57,17 @@ def churn_par_contrat(df: pd.DataFrame) -> dict:
     return resume
 
 
+def filter_at_risk_clients(df: pd.DataFrame) -> pd.DataFrame:
+    """Retourne les clients à risque de churn."""
+    
+    mask = (
+        (df["tenure"] < 12) &
+        (df["Contract"] == "Month-to-month") &
+        (df["TechSupport"] == "No")
+    )
+    return df[mask]
+
+
 if __name__ == "__main__":
     df = load_data("data/telco_churn.csv")
 
@@ -79,3 +90,8 @@ if __name__ == "__main__":
     for contrat, s in stats.items():
         print(f"  {contrat:20} : {s['total']:4d} clients, "
               f"{s['churned']:4d} churned ({s['taux']}%)")
+    
+    print(f"\n🚨 CLIENTS À RISQUE :")
+    at_risk = filter_at_risk_clients(df)
+    print(f"  {len(at_risk)} clients à risque détectés")
+    print(at_risk[["tenure", "Contract", "TechSupport", "Churn"]].head(5))
