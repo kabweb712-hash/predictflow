@@ -33,6 +33,8 @@
 | `python -m venv .venv` | Créer un environnement virtuel |
 | `.venv\Scripts\activate` | Activer le venv (Windows) |
 | `deactivate` | Désactiver le venv |
+| `python -m module.name` | Exécuter un module Python (gère les imports relatifs) |
+| `python script.py` |	Exécuter un script Python directement |
 
 ---
 
@@ -108,3 +110,13 @@
 | `mask` | Série de True/False pour filtrer un DataFrame | `df[mask]` |
 | `list comprehension` | Boucle `for` + `if` condensée en 1 ligne | `[x for x in l if x > 0]` |
 | `generator` | Comme list comprehension mais calcul à la demande | `(x for x in l if x > 0)` |
+| `logging` | Module Python pour tracer l'exécution d'un programme | `import logging` |
+| `Logger` | Objet qui enregistre les messages de log | `logger = logging.getLogger("nom")` |
+| `Handler` | Destination des logs (console, fichier, etc.) | `StreamHandler`, `FileHandler` |
+| `Formatter` | Définit le format d'affichage des logs | `'%(asctime)s - %(levelname)s'` |
+| `DEBUG` | Niveau de log : détails techniques (développement) | `logger.debug("détail")` |
+| `INFO` | Niveau de log : déroulement normal du programme | `logger.info("OK")` |
+| `WARNING` | Niveau de log : problème non-bloquant à surveiller | `logger.warning("attention")` |
+| `ERROR` | Niveau de log : erreur empêchant une opération | `logger.error("échec")` |
+| `CRITICAL` | Niveau de log : erreur grave nécessitant l'arrêt | `logger.critical("crash")` |
+
