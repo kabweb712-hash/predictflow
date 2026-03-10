@@ -120,3 +120,22 @@
 | `ERROR` | Niveau de log : erreur empêchant une opération | `logger.error("échec")` |
 | `CRITICAL` | Niveau de log : erreur grave nécessitant l'arrêt | `logger.critical("crash")` |
 
+---
+
+## 8. 🐼 Pandas — Manipulation de données
+
+| Commande | Ce que ça fait |
+|---|---|
+| `pd.read_csv('path/file.csv')` | Charger un fichier CSV dans un DataFrame |
+| `df.dtypes` | Afficher le type de chaque colonne |
+| `df.shape` | Afficher (nb_lignes, nb_colonnes) |
+| `df.drop(columns=['col'])` | Supprimer une ou plusieurs colonnes |
+| `pd.to_numeric(df['col'], errors='coerce')` | Convertir en nombre, invalides → NaN |
+| `df['col'].isna().sum()` | Compter les NaN d'une colonne |
+| `df.isnull().sum().sum()` | Compter tous les NaN du DataFrame |
+| `df.dropna()` | Supprimer les lignes contenant des NaN |
+| `df['col'].map({'Yes': 1, 'No': 0})` | Remplacer des valeurs selon un dictionnaire |
+| `df['col'].unique()` | Afficher les valeurs uniques d'une colonne |
+| `Move-Item src dst` | Déplacer un fichier (PowerShell) |
+
+
