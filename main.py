@@ -21,6 +21,8 @@ def main():
     df = fix_total_charges(df)
     df = handle_missing_values(df)
     df = encode_target(df)
+    df.to_csv("data/processed/telco_clean.csv", index=False)
+
 
     # 4️⃣ Statistiques
     rate = churn_rate(df)
