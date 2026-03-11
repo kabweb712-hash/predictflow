@@ -119,6 +119,7 @@
 | `WARNING` | Niveau de log : problème non-bloquant à surveiller | `logger.warning("attention")` |
 | `ERROR` | Niveau de log : erreur empêchant une opération | `logger.error("échec")` |
 | `CRITICAL` | Niveau de log : erreur grave nécessitant l'arrêt | `logger.critical("crash")` |
+| tuple unpacking | Assigner plusieurs valeurs retournées par une fonction à des variables séparées |
 
 ---
 
@@ -137,5 +138,10 @@
 | `df['col'].map({'Yes': 1, 'No': 0})` | Remplacer des valeurs selon un dictionnaire |
 | `df['col'].unique()` | Afficher les valeurs uniques d'une colonne |
 | `Move-Item src dst` | Déplacer un fichier (PowerShell) |
-
+| df[df['col'] == val]                    | Filtrer les lignes où col vaut val                    |
+| df['col'].mean()                        | Calculer la moyenne d'une colonne                     |
+| df['col'].min() / .max()                | Valeur minimale / maximale d'une colonne              |
+| df['col'].sum()                         | Somme des valeurs (utile pour compter les 1 binaires) |
+| df['col'].value_counts()                | Compter les occurrences de chaque valeur unique       |
+| df.to_csv('path/file.csv', index=False) | Exporter un DataFrame en CSV sans l'index             |
 
