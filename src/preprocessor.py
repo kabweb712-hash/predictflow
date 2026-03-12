@@ -1,39 +1,66 @@
-# preprocessor.py — Nettoyage et préparation des données Telco
+"""
+PredictFlow — Module de prétraitement des données.
+"""
+
 import pandas as pd
-from src.utils.logger import setup_logger
-
-logger = setup_logger()
+from src.exceptions import PreprocessingError
 
 
-def drop_useless_columns(df):
-    """Supprime les colonnes inutiles du dataset."""
-    useless_cols = ['customerID']
-    logger.debug(f"Suppression des colonnes inutiles : {useless_cols}")
-    df = df.drop(columns=useless_cols, errors='ignore')
-    logger.info(f"✅ Colonnes supprimées : {useless_cols} | Shape : {df.shape}")
-    return df
+class BaseProcessor:
+    """Classe de base — contient la validation commune."""
+
+    def __init__(self, df):
+        self.df = df
+
+    def valider(self):
+        """Vérifie que self.df est un DataFrame valide."""
+        if self.df is None:
+            raise PreprocessingError("Pas de données à traiter.")
+        if not isinstance(self.df, pd.DataFrame):
+            raise PreprocessingError("Les données doivent être un DataFrame pandas.")
 
 
-def fix_total_charges(df):
-    """Convertit TotalCharges en float et remplace les espaces par NaN."""
-    df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
-    count = df['TotalCharges'].isna().sum()
-    logger.debug(f"Nombre de valeurs NaN dans TotalCharges après conversion : {count}")
-    logger.info(f"✅ TotalCharges converti en float | {count} NaN détectés")
-    return df
+class Preprocessor(BaseProcessor):
+    """Nettoie et prépare le dataset Telco."""
+
+    def nettoyer(self):
+        """Supprime colonnes inutiles et valeurs manquantes."""
+        self.valider()
+        self.df = self.df.drop(columns=["customerID"], errors="ignore")
+        self.df["TotalCharges"] = pd.to_numeric(
+            self.df["TotalCharges"], errors="coerce"
+        )
+        self.df = self.df.dropna()
+        print(f"✅ Nettoyage : {len(self.df):,} lignes conservées")
+        return self
+
+    def encoder_cible(self):
+        """Encode Churn : Yes→1, No→0."""
+        self.valider()
+        self.df["Churn"] = self.df["Churn"].map({"Yes": 1, "No": 0})
+        print("✅ Churn encodé : Yes→1, No→0")
+        return self
+
+    def pipeline_complet(self):
+        """Exécute le pipeline complet dans l'ordre."""
+        self.valider()
+        self.nettoyer()
+        self.encoder_cible()
+        print("✅ Pipeline complet terminé")
+        return self.df
 
 
-def handle_missing_values(df):
-    """Supprime toutes les lignes contenant des valeurs manquantes."""
-    before_count = df.isnull().sum().sum()
-    df = df.dropna()
-    after_count = df.isnull().sum().sum()
-    logger.info(f"✅ Lignes supprimées | {before_count} → {after_count} NaN restants | Shape : {df.shape}")
-    return df
+# ─────────────────────────────────────────
+# TEST DU MODULE
+# ─────────────────────────────────────────
+if __name__ == "__main__":
+    from src.loader import DataLoader
 
+    loader = DataLoader()
+    loader.charger()
 
-def encode_target(df):
-    """Encode la variable cible Churn en binaire (Yes=1, No=0)."""
-    df['Churn'] = df['Churn'].map({'Yes': 1, 'No': 0})
-    logger.info("✅ Variable cible Churn encodée en binaire")
-    return df
+    prep = Preprocessor(loader.df)
+    df_clean = prep.pipeline_complet()
+
+    print(f"\n📊 Dataset nettoyé : {df_clean.shape}")
+    print(f"Taux de churn : {df_clean['Churn'].mean()*100:.1f}%")
