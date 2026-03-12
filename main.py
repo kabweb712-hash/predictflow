@@ -1,39 +1,36 @@
-import pandas as pd
-from src.loader import load_data, get_basic_info
-from src.preprocessor import drop_useless_columns, fix_total_charges, handle_missing_values, encode_target
+"""
+PredictFlow — Pipeline principal.
+"""
+
+from src.loader import DataLoader
+from src.preprocessor import Preprocessor
+from src.stats import StatsAnalyzer
 from src.utils.logger import setup_logger
-from src.stats import churn_rate, average_charges, tenure_stats, contract_distribution
 
 logger = setup_logger()
 
+
 def main():
-    # 1️⃣ Charger les données
-    df = load_data("data/raw/telco_churn.csv")
-    if df is None:
-        logger.critical("Échec du chargement des données. Fin du programme.")
-        return
+    logger.info("=== Démarrage PredictFlow ===")
 
-    # 2️⃣ Afficher les infos de base
-    get_basic_info(df)
+    # 1. Charger
+    loader = DataLoader()
+    loader.charger().inspecter()
 
-    # 3️⃣ Prétraitement
-    df = drop_useless_columns(df)
-    df = fix_total_charges(df)
-    df = handle_missing_values(df)
-    df = encode_target(df)
-    df.to_csv("data/processed/telco_clean.csv", index=False)
+    # 2. Prétraiter
+    prep = Preprocessor(loader.df)
+    df_clean = prep.pipeline_complet()
 
+    # 3. Sauvegarder le dataset propre
+    df_clean.to_csv("data/processed/telco_clean.csv", index=False)
+    logger.info("✅ Dataset propre sauvegardé")
 
-    # 4️⃣ Statistiques
-    rate = churn_rate(df)
-    logger.info(f"Taux de churn : {rate}%")
-    churned_avg, retained_avg = average_charges(df)
-    tenure_min, tenure_max, tenure_avg = tenure_stats(df)
-    print(f"Taux de churn : {churn_rate(df)}%")
-    print(f"Charges moyennes (churners)  : {round(churned_avg, 2)}€")
-    print(f"Charges moyennes (fidèles)   : {round(retained_avg, 2)}€")
-    print(f"Durée abonnement — min: {tenure_min}m | max: {tenure_max}m | moy: {tenure_avg}m")
-    print(f"Distribution contrats :\n{contract_distribution(df)}")
+    # 4. Statistiques + export JSON
+    stats = StatsAnalyzer(df_clean)
+    stats.exporter_json()
+
+    logger.info("=== PredictFlow terminé ✅ ===")
+
 
 if __name__ == "__main__":
     main()
