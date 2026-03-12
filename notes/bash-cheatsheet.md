@@ -16,6 +16,7 @@
 | `mkdir a, b, c` | Créer plusieurs dossiers d'un coup |
 | `New-Item fichier.txt -type file` | Créer un fichier vide |
 | `Rename-Item ancien nouveau` | Renommer un fichier/dossier |
+| `Move-Item src dst` | Déplacer un fichier |
 | `code fichier.py` | Ouvrir un fichier dans VS Code |
 | `code .` | Ouvrir tout le dossier dans VS Code |
 | `q` | Quitter le pager `less` dans le terminal |
@@ -28,13 +29,11 @@
 |---|---|
 | `python --version` | Vérifier la version Python |
 | `python script.py` | Lancer un script Python |
-| `python src/script.py` | Lancer un script depuis un sous-dossier |
-| `python -c "code"` | Lancer du code Python directement (éviter sur PowerShell) |
+| `python -m src.module` | Lancer un module (résout les imports relatifs) |
+| `python -c "code"` | Lancer du code Python directement |
 | `python -m venv .venv` | Créer un environnement virtuel |
 | `.venv\Scripts\activate` | Activer le venv (Windows) |
 | `deactivate` | Désactiver le venv |
-| `python -m module.name` | Exécuter un module Python (gère les imports relatifs) |
-| `python script.py` |	Exécuter un script Python directement |
 
 ---
 
@@ -106,10 +105,11 @@
 | `set` | Ensemble sans doublons, non ordonné | `{1, 2, 3}` |
 | `dict` | Dictionnaire clé:valeur | `{"nom": "Alice", "age": 30}` |
 | `type hint` | Annotation du type attendu d'une variable/fonction | `def f(x: str) -> int:` |
-| `DataFrame` | Tableau de données Pandas (lignes + colonnes) | `pd.read_csv("data.csv")` |
-| `mask` | Série de True/False pour filtrer un DataFrame | `df[mask]` |
+| `tuple unpacking` | Assigner plusieurs valeurs retournées à des variables séparées | `a, b = func()` |
 | `list comprehension` | Boucle `for` + `if` condensée en 1 ligne | `[x for x in l if x > 0]` |
 | `generator` | Comme list comprehension mais calcul à la demande | `(x for x in l if x > 0)` |
+| `DataFrame` | Tableau de données Pandas (lignes + colonnes) | `pd.read_csv("data.csv")` |
+| `mask` | Série de True/False pour filtrer un DataFrame | `df[mask]` |
 | `logging` | Module Python pour tracer l'exécution d'un programme | `import logging` |
 | `Logger` | Objet qui enregistre les messages de log | `logger = logging.getLogger("nom")` |
 | `Handler` | Destination des logs (console, fichier, etc.) | `StreamHandler`, `FileHandler` |
@@ -119,7 +119,21 @@
 | `WARNING` | Niveau de log : problème non-bloquant à surveiller | `logger.warning("attention")` |
 | `ERROR` | Niveau de log : erreur empêchant une opération | `logger.error("échec")` |
 | `CRITICAL` | Niveau de log : erreur grave nécessitant l'arrêt | `logger.critical("crash")` |
-| tuple unpacking | Assigner plusieurs valeurs retournées par une fonction à des variables séparées |
+| `POO` | Programmation Orientée Objet — organiser le code en classes | `class DataLoader:` |
+| `class` | Plan/moule pour créer des objets | `class DataLoader:` |
+| `instance` | Objet créé à partir d'une classe | `loader = DataLoader()` |
+| `attribut` | Variable attachée à un objet via `self` | `self.df = None` |
+| `méthode` | Fonction définie dans une classe | `def charger(self):` |
+| `self` | Référence à l'objet lui-même dans une méthode | `self.df`, `self.chemin` |
+| `__init__` | Constructeur — appelé automatiquement à la création | `loader = DataLoader()` |
+| `dunder method` | Méthode spéciale avec double underscore | `__str__`, `__len__`, `__repr__` |
+| `héritage` | Une classe enfant reçoit attributs et méthodes du parent | `class Preprocessor(BaseProcessor):` |
+| `PascalCase` | Convention de nommage des classes — chaque mot en majuscule | `DataLoader`, `StatsAnalyzer` |
+| `exception` | Erreur levée quand quelque chose se passe mal | `FileNotFoundError` |
+| `raise` | Lever manuellement une exception | `raise StatsError("message")` |
+| `try/except` | Attraper une exception pour éviter un crash | `try: ... except: ...` |
+| `guard clause` | Vérification en début de fonction pour sortir tôt si invalide | `if not self.est_charge: return` |
+| `JSON` | Format texte pour stocker des données structurées | `json.dump(data, f, indent=4)` |
 
 ---
 
@@ -137,11 +151,9 @@
 | `df.dropna()` | Supprimer les lignes contenant des NaN |
 | `df['col'].map({'Yes': 1, 'No': 0})` | Remplacer des valeurs selon un dictionnaire |
 | `df['col'].unique()` | Afficher les valeurs uniques d'une colonne |
-| `Move-Item src dst` | Déplacer un fichier (PowerShell) |
-| df[df['col'] == val]                    | Filtrer les lignes où col vaut val                    |
-| df['col'].mean()                        | Calculer la moyenne d'une colonne                     |
-| df['col'].min() / .max()                | Valeur minimale / maximale d'une colonne              |
-| df['col'].sum()                         | Somme des valeurs (utile pour compter les 1 binaires) |
-| df['col'].value_counts()                | Compter les occurrences de chaque valeur unique       |
-| df.to_csv('path/file.csv', index=False) | Exporter un DataFrame en CSV sans l'index             |
-
+| `df[df['col'] == val]` | Filtrer les lignes où col vaut val |
+| `df['col'].mean()` | Calculer la moyenne d'une colonne |
+| `df['col'].min()` / `.max()` | Valeur minimale / maximale d'une colonne |
+| `df['col'].sum()` | Somme des valeurs (utile pour compter les 1 binaires) |
+| `df['col'].value_counts()` | Compter les occurrences de chaque valeur unique |
+| `df.to_csv('path/file.csv', index=False)` | Exporter un DataFrame en CSV sans l'index |
