@@ -15,3 +15,7 @@
 | slicing | Découper une portion de liste | `lignes[1:]` | S01 | 🔁 |
 | typage dynamique et fort | Python devine le type et refuse les mélanges | `"a" + 10` → TypeError | S01 | 🔁 |
 | variable | Étiquette sur une valeur | `nb_clients = 7043` | S01 | ✅ |
+| `+= 1` | Ajouter 1 à un compteur : `total += 1` |
+| `f"{x:.1f}"` | Afficher un décimal avec 1 chiffre après la virgule |
+| `len(liste)` | Nombre d'éléments d'une liste |
+| `range(3)` | Les nombres 0, 1, 2 (la fin est exclue) |

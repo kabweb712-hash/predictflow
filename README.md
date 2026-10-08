@@ -8,7 +8,7 @@ PredictFlow prédit si un client va résilier son abonnement (churn)
 Projet construit dans le cadre d'une formation Développeur IA (RNCP 37827).
 
 ## Dataset
-Telco Customer Churn (Kaggle) — 7 043 clients, 21 features
+Telco Customer Churn (Kaggle) — 7 043 clients, 21 colonnes
 
 ## Stack
 - Python 3.11+
@@ -27,6 +27,7 @@ pip install -r requirements.txt
 ```
 predictflow/
 ├── data/ → datasets
+├── notes/ → cheatsheet bash, glossaire technique
 └── src/ → code source
 ```
 
